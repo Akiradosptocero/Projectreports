@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_projectreports_projectreports,projectreports.projectreports,model_projectreports_projectreports,base.group_user,1,1,1,1
+access_projectreports_imagenreport,projectreports.imagenreport,model_projectreports_imagenreport,base.group_user,1,1,1,1
