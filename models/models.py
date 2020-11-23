@@ -27,7 +27,7 @@ class imagenreport(models.Model):
     _description = 'Imagenes para subir al reporte'
 
     name = fields.Char(string="Name")
-    picture = fields.Binary(string="Imagen", attachment=True)
+    picture = fields.Binary(string="Imagen")
     
     projecto_id = fields.Many2one('project.project',
        ondelete='cascade', string="Projecto", required=True)

@@ -4,16 +4,86 @@
 
         <template id="project_reports_doc">
         	<t t-call="web.html_container">
-        	<style>
-			
-				div.tabla_tareas {
-					page-break-before: always;
-				}
 
-				table.capturas, tr.capturas, td.capturas 
+			<!-- <div class="page"> -->
+		
+				<!-- Mostrar tabla con las tareas del proyecto filtrodo por el mes correspondiente -->
+				<t t-call="projectreports.portada_del_informe"/>
+
+				<!-- Mostrar tabla con las tareas del proyecto filtrodo por el mes correspondiente -->
+				<div style="page-break-before: always;">
+					<t t-call="projectreports.mostrar_tareas"/>
+				</div>
+
+				<!-- Mostrar las imagenes del Google analytics -->
+				<div style="page-break-before: always;">
+					<t t-call="projectreports.mostrar_capturas"/>
+				</div>
+
+				<!-- Mostrar el pie de página -->
+				<t t-call="projectreports.footer_del_informe"/>
+
+			<!-- </div> -->
+	        </t>
+
+        </template>
+
+
+		<!-- To Do: poner la foto estatica en un directorio del modulo -->		
+		<template id="footer_del_informe">
+        	<style>
+
+				<!-- img.footer
 				{
-   					border: 1px hidden #000;
-				}
+					margin: 10px auto 20px;
+					text-align: center;
+					display: block;
+					width="200";
+					height="50";
+					border: 1px solid red; 
+				} -->
+
+
+        	</style>
+
+
+			<div style="border: 1px solid blue;" class="footer">
+			<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
+						
+				<t t-foreach="i.imagenes" t-as="img">
+					<t t-if="img_first"> 
+						<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50"  t-attf-src="data:image/*;base64,{{img.picture}}"/>
+					</t>	
+				</t>
+
+				<p style="border: 1px solid green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
+			</div>
+		</template>
+
+
+		<!-- To Do: diseñar la portada
+					- poner foto de fondo 
+					- nombre de empres
+					- mes y año del informe
+					- imagen logo empresa
+					 -->
+		<template id="portada_del_informe">
+			<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/>
+			<img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-att-src="'data:image/png;base64, /usr/lib/python3/dist-packages/odoo/addons/projectreports/static/src/img/logo.png'"/>
+
+			<h1><span t-field="i.name"/></h1>
+			<h1>Informe</h1> <!-- To Do: añadir el mes y año del informe  -->
+				
+			<img src="'/projectreports/static/src/img/logo.png'"/>
+		</template>
+
+
+		<!-- To do: diseñar la tabla
+					- formatear las horas, quitar decimal
+					- poner colores
+					 -->
+		<template id="mostrar_tareas">
+        	<style>
 
 				table 
 				{
@@ -28,170 +98,100 @@
 					border: 1px solid #000;
 				}
 
-
         	</style>
-<div class="page">
-					<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/>
 
-			<!-- <img src="/usr/lib/python3/dist-packages/odoo/addons/projectreports/images/portada-ejemplo.png"> -->
-			<!-- <img class="img img-responsive" src="/usr/lib/python3/dist-packages/odoo/addons/projectreports/images/portada-ejemplo.png"/>
-			<img src="/projectreports/static/img/logo-web.png"/>
-			<img t-attf-src="'/projectreports/static/img/logo-web.png'"/> -->	
-			
-			<!-- <div style="margin-left:15%;">
-				<img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/>
-				<p style="font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
-			</div> -->
+			<table>
+				<tr>
+					<td><h2>TAREAS REALIZADAS</h2></td>
+					<td><h2>HORAS</h2></td>
+				</tr>
+				<t t-set="suma" t-value="0" />
+				<t t-foreach="i.task_ids" t-as="tarea">
 
-			<!-- <img style="border-radius: 15px;" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}" width="193" height="130" class="center-block"/>
-			 -->
-			
-
-			<img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-att-src="'data:image/png;base64, /usr/lib/python3/dist-packages/odoo/addons/projectreports/static/src/img/logo.png'"/>
-
-			<h1><span t-field="i.name"/></h1>
-			<h1>Informe</h1> <!-- To Do: añadir el mes y año del informe  -->
-			
-			<img src="'/projectreports/static/src/img/logo.png'"/>			
-			<!-- <img t-att-src="/images/""/projectreports/static/src/img/logo.png" /> -->
-
-			<!-- <img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="60" class="img img-responsive" src="'/projectreports/static/src/img/logo.png'"/>			 -->
-
-				<!-- <div style="margin-bottom:1%;" class="footer">
-					<img style="margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/>
-					<p style="font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
-				</div> -->
-
-				<!-- position:static!important; -->
-				<div style="border: 1px solid blue;" class="footer">
-					<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/>
-					<p style="border: 1px solid green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
-				</div>
-
-        	<div class="tabla_tareas">
-        		
-				<table class="tabla_tareas">
-            		<!-- <tr><td><h2><span t-field="i.name"/></h2></td></tr>
-					<tr><td><span t-field="i.resource_calendar_id"/></td></tr> -->
-					<!-- <tr><td><p>Lista de tareas: </p></td></tr> -->
-					<!-- <span t-field="i.task_ids" /> -->
-					<!-- <tr>						
-						<td><h1>Mes de reporte:</h1></td>
-						<td><span t-esc="i.month_tdisp" /></td>
-					</tr> -->
-
-					<tr>
-						<td><h2>TAREAS REALIZADAS</h2></td>
-						<td><h2>HORAS</h2></td>
-					</tr>
-					
-					<t t-set="suma" t-value="0" />
-					
-					<t t-foreach="i.task_ids" t-as="tarea">
-
-						<t t-if="tarea.date_end">
-
-						<!-- <tr>
-							<td><h3>Date_end de la tarea: <span t-esc="str(tarea.date_end)"/></h3></td>
-							<td><h3>Mes seleccionado: <span t-field="i.month_tdisp"/></h3></td>
-							<td><h3>Filtro fecha tarea: <span t-esc="str(tarea.date_end).split('-')[1]"/></h3></td>
-						</tr> -->
-
+					<t t-if="tarea.date_end">
 						<t t-if="str(tarea.date_end).split('-')[1] == str(i.month_tdisp)">
-
-							
 							<tr>
-							<td>
-								<h3><span t-field="tarea.name"/></h3>
-								
-								<t t-if="tarea.timesheet_ids">
-									<t t-foreach="tarea.timesheet_ids" t-as="act">
-										<t t-if="act.name">
-											<span t-field="act.name"/>
-											<br/>
+								<td>
+									<h3><span t-field="tarea.name"/></h3>
+									<t t-if="tarea.timesheet_ids">
+										<t t-foreach="tarea.timesheet_ids" t-as="act">
+											<t t-if="act.name">
+												<span t-field="act.name"/>
+												<br/>
+											</t>
 										</t>
 									</t>
+									<br/>
+								</td>
 									
-								</t>
-								<br/>
-							</td>
-							
-							<td><span t-esc="tarea.effective_hours"/></td>
+								<td><span t-esc="tarea.effective_hours"/></td>
 								<t t-set="suma" t-value="tarea.effective_hours + suma" />
 							</tr>
 						</t>
-						</t>
 					</t>
-						
-					<tr>
-						<td><h2>TOTAL HORAS</h2></td>
-						<td><h2><span t-esc="suma"/></h2></td>
-					</tr>
-				</table>
-        	</div>
+				</t>
+							
+				<tr>
+					<td><h2>TOTAL HORAS</h2></td>
+					<td><h2><span t-esc="suma"/></h2></td>
+				</tr>
+			</table>
+		</template>
 
-			  <!-- Mostrar las imagenes del Google analytics -->
-			  <!-- <div style="page-break-before: always;"> -->
-			  <div>
+
+		<!-- To do: tamaño de las fotos y pie de foto
+					- cambiar name por descripcion de la foto
+					 -->
+		<template id="mostrar_capturas">
+			<style>
+
+				table.capturas 
+				{
+   					width: 100%;
+   					border: 1px hidden #000;
+				}
+
+        		td.capturas 
+				{
+				    text-align: center; 
+				    vertical-align: middle;
+					border: 1px hidden #000;
+				}
+
+				#img-capturas 
+				{
+					margin: 10px auto 20px;
+					text-align: center;
+					display: block;
+					width=200; 
+					height=50;
+				}
+
+        	</style>
+			
+			
 				<h2>Capturas de pantalla</h2>
-				<br/><br/>
 					<t t-foreach="i.imagenes" t-as="img">
-						<div>
 							<table class="capturas">
 								<tr class="capturas" >
-									<td class="capturas"><img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+									<td class="capturas">
+										<img id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
 									</td>
-									<!-- <td>
-									<img t-att-src="'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=%s'%(img.id)"/>
-									</td> -->
-										<!--<td><img t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id='+str(img.id)}}"/>
-									</td>-->
 								</tr>
 								<tr class="capturas">
 									<td class="capturas">
 									<span t-field="img.name"/>
 									</td>
 								</tr>
-								<!-- <tr>
-									<td>
-										<img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=3'}}"/>
-									</td>
-								</tr> -->
 							</table>
-
-								<!-- <p>Valor i.imagen:</p>
-								<h1>
-									<t t-set="foto_id" t-value="img.id" />
-									<span t-esc="foto_id"/> -->
-									<!-- <span t-esc="'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id='"/> -->
-									<!-- <t t-esc="'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id='(foto_id)"/> -->
-								
-								<!-- </h1> -->
-								<!-- <img t-field="img.picture" t-field-options='{"widget": "image"}'/> -->
-								
-								<!-- <img t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id='+str(foto_id)}}"/>
-								<img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=3'}}"/> -->
-					
-						</div>
 					</t>
-				</div>
-				<!-- <table>
-					<tr>
-						<td><p>objeto imagenes</p></td>
-						<td><span t-field="str(i.imagenes)"/></td>
-					</tr>
-					<tr></tr>
-				</table> -->
+		</template>
 
-				<!-- <img t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=+str(i.imagenes)'}}"/> -->
-</div>
-	        </t>
-        </template>
 
         <template id="project_reports">
-        <t t-foreach="docs" t-as="i">
-            <t t-call="projectreports.project_reports_doc"/>
-        </t>
+				<t t-foreach="docs" t-as="i">
+					<t t-call="projectreports.project_reports_doc"/>
+				</t>
         </template>
     </data>
 </odoo>
