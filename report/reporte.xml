@@ -33,13 +33,11 @@
 		<template id="footer_del_informe">
         	<style>
 
-				<!-- img.footer
+				<!-- #img-footer
 				{
 					margin: 10px auto 20px;
 					text-align: center;
 					display: block;
-					width="200";
-					height="50";
 					border: 1px solid red; 
 				} -->
 
@@ -47,16 +45,16 @@
         	</style>
 
 
-			<div style="border: 1px solid blue;" class="footer">
+			<div style="position: static; margin-bottom: 200px; border: 1px solid blue;" class="footer">
 			<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
 						
 				<t t-foreach="i.imagenes" t-as="img">
 					<t t-if="img_first"> 
-						<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50"  t-attf-src="data:image/*;base64,{{img.picture}}"/>
+						<img style="position: relative; border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="100" t-attf-src="data:image/*;base64,{{img.picture}}"/>
 					</t>	
 				</t>
 
-				<p style="border: 1px solid green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
+				<p style="position: relative; margin-bottom: 20px; border: 1px solid green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
 			</div>
 		</template>
 
@@ -85,23 +83,41 @@
 		<template id="mostrar_tareas">
         	<style>
 
-				table 
+				table#tareas 
 				{
+					position: relative;
    					width: 100%;
    					border: 1px solid #000;
+					border-collapse: collapse;
 				}
 
         		td 
 				{
+					position: relative;
 				    text-align: center; 
 				    vertical-align: middle;
 					border: 1px solid #000;
 				}
 
+				tr#tareas:nth-child(3n+1) 
+				{
+					background-color: whitesmoke;
+				}
+				tr#tareas:nth-child(3n+2)
+				{
+					background-color: #dddddd;
+				}
+
+				span#tareas:
+				{
+					text-align: left;
+					text-transform: capitalize;
+				}
+
         	</style>
 
-			<table>
-				<tr>
+			<table id="tareas">
+				<tr id="tareas">
 					<td><h2>TAREAS REALIZADAS</h2></td>
 					<td><h2>HORAS</h2></td>
 				</tr>
@@ -110,13 +126,13 @@
 
 					<t t-if="tarea.date_end">
 						<t t-if="str(tarea.date_end).split('-')[1] == str(i.month_tdisp)">
-							<tr>
+							<tr id="tareas">
 								<td>
 									<h3><span t-field="tarea.name"/></h3>
 									<t t-if="tarea.timesheet_ids">
 										<t t-foreach="tarea.timesheet_ids" t-as="act">
 											<t t-if="act.name">
-												<span t-field="act.name"/>
+												<span style="border: 1px solid red; text-align: left; text-transform: capitalize;" id="tareas" t-field="act.name"/>
 												<br/>
 											</t>
 										</t>
@@ -131,7 +147,7 @@
 					</t>
 				</t>
 							
-				<tr>
+				<tr id="tareas">
 					<td><h2>TOTAL HORAS</h2></td>
 					<td><h2><span t-esc="suma"/></h2></td>
 				</tr>
@@ -145,26 +161,33 @@
 		<template id="mostrar_capturas">
 			<style>
 
-				table.capturas 
+				table#tcapturas 
 				{
    					width: 100%;
    					border: 1px hidden #000;
 				}
 
-        		td.capturas 
+        		td#tcapturas 
 				{
 				    text-align: center; 
 				    vertical-align: middle;
-					border: 1px hidden #000;
+					border: 1px solid #000;
 				}
 
+				table, tr, td, td {
+					valign: top;
+					position: relative;
+				}
+
+				<!-- To Do: fijar el footer para poder poner un tamaño de imagen mas grande
+							Cuando se amplia se desplaza y desaparece 
+							 -->
 				#img-capturas 
 				{
 					margin: 10px auto 20px;
 					text-align: center;
 					display: block;
-					width=200; 
-					height=50;
+					
 				}
 
         	</style>
@@ -172,18 +195,18 @@
 			
 				<h2>Capturas de pantalla</h2>
 					<t t-foreach="i.imagenes" t-as="img">
-							<table class="capturas">
-								<tr class="capturas" >
-									<td class="capturas">
-										<img id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
-									</td>
-								</tr>
-								<tr class="capturas">
-									<td class="capturas">
+						<table id="tcapturas">
+							<tr id="tcapturas" >
+								<td id="tcapturas">
+									<img id="img-capturas" width="200" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+								</td>
+							</tr>
+							<tr id="tcapturas">
+								<td id="tcapturas">
 									<span t-field="img.name"/>
-									</td>
-								</tr>
-							</table>
+								</td>
+							</tr>
+						</table>
 					</t>
 		</template>
 
