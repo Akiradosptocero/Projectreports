@@ -45,12 +45,12 @@
         	</style>
 
 
-			<div style="position: static; margin-bottom: 200px; border: 1px solid blue;" class="footer">
+			<div style="position: static; margin-bottom: 5px; border: 1px solid blue;" class="footer">
 			<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
 						
 				<t t-foreach="i.imagenes" t-as="img">
 					<t t-if="img_first"> 
-						<img style="position: relative; border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="100" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+						<!-- <img style="position: relative; border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="50" t-attf-src="data:image/*;base64,{{img.picture}}"/> -->
 					</t>	
 				</t>
 
@@ -140,7 +140,7 @@
 									<br/>
 								</td>
 									
-								<td><span t-esc="tarea.effective_hours"/></td>
+								<td><span t-esc="'{0:}'.format(int(tarea.effective_hours))"/></td>
 								<t t-set="suma" t-value="tarea.effective_hours + suma" />
 							</tr>
 						</t>
@@ -149,7 +149,7 @@
 							
 				<tr id="tareas">
 					<td><h2>TOTAL HORAS</h2></td>
-					<td><h2><span t-esc="suma"/></h2></td>
+					<td><h2><span t-esc="'{0:}'.format(int(suma))"/></h2></td>
 				</tr>
 			</table>
 		</template>
@@ -161,48 +161,53 @@
 		<template id="mostrar_capturas">
 			<style>
 
-				table#tcapturas 
+				<!-- table#tcapturas 
 				{
    					width: 100%;
    					border: 1px hidden #000;
-				}
+				} -->
 
         		td#tcapturas 
 				{
 				    text-align: center; 
-				    vertical-align: middle;
-					border: 1px solid #000;
+				    vertical-align: top;
+					border: 2px solid yellow;
+					padding-bottom: 0px;
+					box-sizing: border-box;
 				}
 
+				<!-- 
 				table, tr, td, td {
 					valign: top;
 					position: relative;
-				}
+				} -->
 
 				<!-- To Do: fijar el footer para poder poner un tamaño de imagen mas grande
 							Cuando se amplia se desplaza y desaparece 
 							 -->
-				#img-capturas 
+				<!-- #img-capturas 
 				{
 					margin: 10px auto 20px;
 					text-align: center;
 					display: block;
-					
-				}
+					border: 3px solid blue;
+				} -->
+					<!-- style="border: 2px solid blue; padding: 5px; margin: 10px auto 20px; text-align: center; display: block;" -->
+
 
         	</style>
 			
 			
 				<h2>Capturas de pantalla</h2>
 					<t t-foreach="i.imagenes" t-as="img">
-						<table id="tcapturas">
-							<tr id="tcapturas" >
+						<table style="position: relative; border: 1px solid red;" id="tcapturas">
+							<tr style="position: relative;" id="tcapturas">
 								<td id="tcapturas">
-									<img id="img-capturas" width="200" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+									<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="600" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
 								</td>
 							</tr>
-							<tr id="tcapturas">
-								<td id="tcapturas">
+							<tr style="position: relative;" id="tcapturas">
+								<td style="position: relative;" id="tcapturas">
 									<span t-field="img.name"/>
 								</td>
 							</tr>
