@@ -4,6 +4,7 @@
         <record model="ir.actions.act_window" id="reportes_list_action">
             <field name="name">Reporte</field>
             <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">Create the first report
@@ -14,6 +15,7 @@
         <record model="ir.actions.act_window" id="config_list_action">
             <field name="name">Configuracion</field>
             <field name="res_model">projectreports.imagenreport</field>
+            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">Create the first config
@@ -39,7 +41,7 @@
 
 
 
-    <record model="ir.ui.view" id="project_wizard_view">
+     <!-- <record model="ir.ui.view" id="project_wizard_view">
         <field name="name">wizard.form</field>
         <field name="model">projectreports.wizard</field>
         <field name="arch" type="xml">
@@ -55,13 +57,14 @@
             </form>
         </field>
     </record>
-    
-
+   
+   
    <act_window id="mes_wizard_action" 
                 name="Mes Reporte"
                 res_model="projectreports.wizard"
-                binding_model="project.project"
+                src_model="project.project"
+                view_type="form"
                 view_mode="form"
-                target="new"/>
+                target="new"/> -->
 
 </odoo>
