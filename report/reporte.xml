@@ -3,27 +3,28 @@
     <data>
 
         <template id="project_reports_doc">
-        	<t t-call="web.html_container">
+        	<!-- <t t-call="web.html_container"> -->
+        	<t t-call="web.basic_layout">
 
-			<!-- <div class="page"> -->
-		
-				<!-- Mostrar tabla con las tareas del proyecto filtrodo por el mes correspondiente -->
-				<t t-call="projectreports.portada_del_informe"/>
+				<div class="page">
+			
+					<!-- Mostrar tabla con las tareas del proyecto filtrodo por el mes correspondiente -->
+					<t t-call="projectreports.portada_del_informe"/>
 
-				<!-- Mostrar tabla con las tareas del proyecto filtrodo por el mes correspondiente -->
-				<div style="page-break-before: always;">
-					<t t-call="projectreports.mostrar_tareas"/>
+					<!-- Mostrar tabla con las tareas del proyecto filtrado por el mes correspondiente -->
+					<div style="page-break-before: always;">
+						<t t-call="projectreports.mostrar_tareas"/>
+					</div>
+
+					<!-- Mostrar las imagenes del Google analytics -->
+					<div style="page-break-before: always;">
+						<t t-call="projectreports.mostrar_capturas"/>
+					</div>
+
+					<!-- Mostrar el pie de página -->
+					<t t-call="projectreports.footer_del_informe"/>
+
 				</div>
-
-				<!-- Mostrar las imagenes del Google analytics -->
-				<div style="page-break-before: always;">
-					<t t-call="projectreports.mostrar_capturas"/>
-				</div>
-
-				<!-- Mostrar el pie de página -->
-				<t t-call="projectreports.footer_del_informe"/>
-
-			<!-- </div> -->
 	        </t>
 
         </template>
@@ -45,41 +46,47 @@
         	</style>
 
 
-			<div style="position: static; margin-bottom: 5px; border: 1px solid blue;" class="footer">
-			<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
-						
-				<t t-foreach="i.imagenes" t-as="img">
-					<t t-if="img_first"> 
-						<!-- <img style="position: relative; border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="50" t-attf-src="data:image/*;base64,{{img.picture}}"/> -->
-					</t>	
-				</t>
+			<div style="position: static; margin-bottom: 5px; border: 1px hidden blue;" class="footer">
+				<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
+							
+					<!-- <t t-foreach="i.imagenes" t-as="img">
+						<t t-if="img.name == 'logo-Binhex-footer'"> 
+							<img style="position: relative; border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="50" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+						</t>	
+					</t> -->
 
-				<p style="position: relative; margin-bottom: 20px; border: 1px solid green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
+				<img style="position: relative; border: 1px hidden red; margin: 10px auto 20px; text-align: center; display: block;" width="50" src="/projectreports/static/src/img/logo.png"/>
+
+
+				<p style="position: relative; margin-bottom: 20px; margin: auto; border: 1px hidden green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
 			</div>
 		</template>
 
 
 		<!-- To Do: diseñar la portada
 					- poner foto de fondo 
-					- nombre de empres
+					- nombre de empresa
 					- mes y año del informe
 					- imagen logo empresa
 					 -->
 		<template id="portada_del_informe">
-			<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/>
-			<img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-att-src="'data:image/png;base64, /usr/lib/python3/dist-packages/odoo/addons/projectreports/static/src/img/logo.png'"/>
-
+			<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
+			<!-- <img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-att-src="'data:image/png;base64, /usr/lib/python3/dist-packages/odoo/addons/projectreports/static/src/img/logo.png'"/> -->
+			
+			<t t-foreach="i.imagenes" t-as="img">
+				<p t-if="img.name == 'logo-portada'">
+					<img style="border: 1px hidden red; margin: auto; text-align: center; display: block;" width="200" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+				</p>
+			</t>
 			<h1><span t-field="i.name"/></h1>
 			<h1>Informe</h1> <!-- To Do: añadir el mes y año del informe  -->
-				
-			<img src="'/projectreports/static/src/img/logo.png'"/>
+			
+			<img src="/projectreports/static/src/img/logo.png"/>
+			<!-- <image file="http://localhost:8069/projectreport/static/src/img/logo.png"></image> -->
 		</template>
 
 
-		<!-- To do: diseñar la tabla
-					- formatear las horas, quitar decimal
-					- poner colores
-					 -->
+
 		<template id="mostrar_tareas">
         	<style>
 
@@ -87,7 +94,7 @@
 				{
 					position: relative;
    					width: 100%;
-   					border: 1px solid #000;
+   					border: 1px hidden #000;
 					border-collapse: collapse;
 				}
 
@@ -96,7 +103,7 @@
 					position: relative;
 				    text-align: center; 
 				    vertical-align: middle;
-					border: 1px solid #000;
+					border: 1px hidden #000;
 				}
 
 				tr#tareas:nth-child(3n+1) 
@@ -122,17 +129,59 @@
 					<td><h2>HORAS</h2></td>
 				</tr>
 				<t t-set="suma" t-value="0" />
+				<!-- <tr>
+					<td> <p>Numero de tareas: </p> </td>
+					<td> <span t-field="i.task_ids"/> </td>
+				</tr> -->
 				<t t-foreach="i.task_ids" t-as="tarea">
 
+					<!-- <tr>
+						<td> <p>Nombre de la tarea:</p> </td>
+						<td> <span t-field="tarea.name"/> </td>
+					</tr>
+
+					<tr>
+						<td> <p>Fecha de la tarea:</p> </td>
+						<td> <span t-field="tarea.date_end"/> </td>
+					</tr> -->
+
 					<t t-if="tarea.date_end">
-						<t t-if="str(tarea.date_end).split('-')[1] == str(i.month_tdisp)">
+
+
+						<t t-set="mesreporte" t-value="str(i.month_tdisp)" />
+						<t t-if="len(mesreporte) == 1" >
+							<t t-set="mesreporte" t-value="'0'+str(mesreporte)" />
+						</t>
+
+
+						<!-- <tr>
+							<td> <p>Entrando en el if:</p> </td>
+							<td> <span t-field="tarea.date_end"/> </td>
+						</tr>
+
+						<tr>
+							<td> <p>Filtrado mes tarea:</p> </td>
+							<td> <span t-esc="str(tarea.date_end).split('-')[1]"/> </td>
+						</tr>
+						<tr>
+							<td> <p>Mes a filtrar:</p> </td>
+							<td> <span t-field="mesreporte"/> </td>
+						</tr> -->
+
+						<t t-if="str(tarea.date_end).split('-')[1] == str(mesreporte)">
+
+							<!-- <tr>
+								<td> <p>Entrando en el filtrado:</p> </td>
+								<td> <span t-field="tarea.date_end"/> </td>
+							</tr> -->
+
 							<tr id="tareas">
 								<td>
 									<h3><span t-field="tarea.name"/></h3>
 									<t t-if="tarea.timesheet_ids">
 										<t t-foreach="tarea.timesheet_ids" t-as="act">
 											<t t-if="act.name">
-												<span style="border: 1px solid red; text-align: left; text-transform: capitalize;" id="tareas" t-field="act.name"/>
+												<span style="border: 1px hidden red; text-align: left; text-transform: capitalize;" id="tareas" t-field="act.name"/>
 												<br/>
 											</t>
 										</t>
@@ -156,7 +205,6 @@
 
 
 		<!-- To do: tamaño de las fotos y pie de foto
-					- cambiar name por descripcion de la foto
 					 -->
 		<template id="mostrar_capturas">
 			<style>
@@ -167,14 +215,14 @@
    					border: 1px hidden #000;
 				} -->
 
-        		td#tcapturas 
+        		<!-- td#tcapturas 
 				{
 				    text-align: center; 
 				    vertical-align: top;
 					border: 2px solid yellow;
 					padding-bottom: 0px;
 					box-sizing: border-box;
-				}
+				} -->
 
 				<!-- 
 				table, tr, td, td {
@@ -194,24 +242,57 @@
 				} -->
 					<!-- style="border: 2px solid blue; padding: 5px; margin: 10px auto 20px; text-align: center; display: block;" -->
 
+					<!-- .recortar-img {
+						width: 200px;
+						height: 200px;
+						overflow: hidden;
+						margin: 10px;
+						position: relative;
+					}
+					.recortar-img > .recorte {
+						position:absolute;
+						left: -100%;
+						right: -100%;
+						top: -100%;
+						bottom: -100%;
+						margin: auto;
+						min-height: 100%;
+						min-width: 100%;
+					} -->
 
         	</style>
 			
 			
 				<h2>Capturas de pantalla</h2>
 					<t t-foreach="i.imagenes" t-as="img">
-						<table style="position: relative; border: 1px solid red;" id="tcapturas">
-							<tr style="position: relative;" id="tcapturas">
-								<td id="tcapturas">
-									<img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="600" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
-								</td>
-							</tr>
-							<tr style="position: relative;" id="tcapturas">
-								<td style="position: relative;" id="tcapturas">
-									<span t-field="img.name"/>
-								</td>
-							</tr>
-						</table>
+						<!-- <table style="position: relative; border: 1px solid red; margin: auto;" id="tcapturas"> -->
+
+							<t t-if="img.name != 'logo-portada'">
+							<!-- <p>Mes a filtrar:</p> 
+							<span t-esc="i.month_tdisp"/><br/>
+							<p>Mes de la imagen: </p> 
+							<span t-esc="img.mes_imagen"/><br/> -->
+
+							<t t-if="str(i.month_tdisp) == str(img.mes_imagen)">
+							<!-- </t> -->
+							<!-- <t t-elif="img.name == 'logo-Binhex-footer'"></t> -->
+							<!-- <t t-else=""> -->
+								<!-- <tr style="position: relative;" id="tcapturas"> -->
+									<!-- <td id="tcapturas"> -->
+										<div class="recortar-img">
+											<img class="recorte" style="border: 1px hidden red; padding: 0px; margin: auto; text-align: center; display: block;" width="600" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+										</div>
+									<!-- </td> -->
+								<!-- </tr> -->
+								<!-- <tr style="position: relative;" id="tcapturas"> -->
+									<!-- <td style="position: relative;" id="tcapturas"> -->
+										<span style="border: 1px hidden red; margin: auto; text-align: center; display: block;" t-field="img.name"/>
+										<br/>
+									<!-- </td> -->
+								<!-- </tr> -->
+							</t>
+							</t>
+						<!-- </table> -->
 					</t>
 		</template>
 
