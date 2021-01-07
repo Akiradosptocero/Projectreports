@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-
-    <!-- <record model="ir.ui.view" id="mostrar_img">
-        <field name="name">imagenreport.form</field>
-        <field name="name">projectreports.imagenreport</field>
-        <field name="arch" type="xml">
-            <form string="Configurar imagenes">
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="picture"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record> -->
-
-
-        <!-- window action -->
-        <!--
-            The following tag is an action definition for a "window action",
-            that is an action opening a view or a set of views
-        -->
         <record model="ir.actions.act_window" id="reportes_list_action">
             <field name="name">Reporte</field>
             <field name="res_model">project.project</field>
@@ -43,19 +21,14 @@
             </field>
         </record>
 
-        <!-- top level menu: no parent -->
         <menuitem id="main_report_menu" name="Project Report"/>
-        <!-- A first level in the left side menu is needed
-             before using action= attribute -->
+
         <menuitem id="projectreports_menu" name="Reports"
                   parent="main_report_menu"/>
 
         <menuitem id="projectreports_mcon" name="Config"
                   parent="main_report_menu"/>         
   
-        <!-- the following menuitem should appear *after*
-             its parent openacademy_menu and *after* its
-             action course_list_action -->
         <menuitem id="reports_menu" name="Reportes" 
                   parent="projectreports_menu"
                   action="reportes_list_action"/>
@@ -64,10 +37,7 @@
                 parent="projectreports_menu"
                 action="config_list_action"/>
 
-        <!-- Full id location:
-             action="openacademy.course_list_action"
-             It is not required when it is the same module -->
-        
+
 
     <record model="ir.ui.view" id="project_wizard_view">
         <field name="name">wizard.form</field>
@@ -76,9 +46,6 @@
             <form string="Mes report">
                 <group>
                     <field name="projects_ids"/>
-                    <!-- <field name="name">Hello World</field>
-                    <field name="image" type="base64" file="/projectreports/images/portada-ejemplo.png"/>
-                    </field> -->
                     <field name="mes_report"/>
                 </group>
                 <footer>
@@ -88,17 +55,6 @@
             </form>
         </field>
     </record>
-
-
-
-
-	<!-- <record model="projectreports.imagenReport" id="example_form">
-  		<field name="name">Hello World</field>
-		<field name="image" type="base64" file="/projectreports/images/portada-ejemplo.png"/> -->
-			<!-- Assume that my image is located in /example/data/helloworld.png -->
-		<!-- </field>
-	</record> -->
-
     
 
    <act_window id="mes_wizard_action" 
