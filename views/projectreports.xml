@@ -41,7 +41,7 @@
 
 
 
-     <!-- <record model="ir.ui.view" id="project_wizard_view">
+     <record model="ir.ui.view" id="project_wizard_view">
         <field name="name">wizard.form</field>
         <field name="model">projectreports.wizard</field>
         <field name="arch" type="xml">
@@ -65,6 +65,7 @@
                 src_model="project.project"
                 view_type="form"
                 view_mode="form"
-                target="new"/> -->
+                target="new"
+                key2="client_action_multi"/>
 
 </odoo>
