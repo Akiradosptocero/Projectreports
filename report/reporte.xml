@@ -47,17 +47,8 @@
 
 
 			<div style="position: static; margin-bottom: 5px; border: 1px hidden blue;" class="footer">
-				<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
-							
-					<!-- <t t-foreach="i.imagenes" t-as="img">
-						<t t-if="img.name == 'logo-Binhex-footer'"> 
-							<img style="position: relative; border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="50" t-attf-src="data:image/*;base64,{{img.picture}}"/>
-						</t>	
-					</t> -->
-
+			
 				<img style="position: relative; border: 1px hidden red; margin: 10px auto 20px; text-align: center; display: block;" width="50" src="/projectreports/static/src/img/logo.png"/>
-
-
 				<p style="position: relative; margin-bottom: 20px; margin: auto; border: 1px hidden green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
 			</div>
 		</template>
@@ -70,19 +61,17 @@
 					- imagen logo empresa
 					 -->
 		<template id="portada_del_informe">
-			<!-- <img style="border: 1px solid red; margin: 10px auto 20px; text-align: center; display: block;" width="200" height="50" t-attf-src="{{'/web/content?model=projectreports.imagenreport&amp;field=picture&amp;id=1'}}"/> -->
-			<!-- <img style="margin: 10px auto 20px;text-align: center;display: block;" width="200" height="50" t-att-src="'data:image/png;base64, /usr/lib/python3/dist-packages/odoo/addons/projectreports/static/src/img/logo.png'"/> -->
 			
-			<t t-foreach="i.imagenes" t-as="img">
+			<!-- <t t-foreach="i.imagenes" t-as="img">
 				<p t-if="img.name == 'logo-portada'">
 					<img style="border: 1px hidden red; margin: auto; text-align: center; display: block;" width="200" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
 				</p>
-			</t>
+			</t> -->
 			<h1><span t-field="i.name"/></h1>
 			<h1>Informe</h1> <!-- To Do: añadir el mes y año del informe  -->
 			
 			<img src="/projectreports/static/src/img/logo.png"/>
-			<!-- <image file="http://localhost:8069/projectreport/static/src/img/logo.png"></image> -->
+			
 		</template>
 
 
@@ -265,34 +254,21 @@
 			
 				<h2>Capturas de pantalla</h2>
 					<t t-foreach="i.imagenes" t-as="img">
-						<!-- <table style="position: relative; border: 1px solid red; margin: auto;" id="tcapturas"> -->
-
+						
 							<t t-if="img.name != 'logo-portada'">
-							<!-- <p>Mes a filtrar:</p> 
-							<span t-esc="i.month_tdisp"/><br/>
-							<p>Mes de la imagen: </p> 
-							<span t-esc="img.mes_imagen"/><br/> -->
 
 							<t t-if="str(i.month_tdisp) == str(img.mes_imagen)">
-							<!-- </t> -->
-							<!-- <t t-elif="img.name == 'logo-Binhex-footer'"></t> -->
-							<!-- <t t-else=""> -->
-								<!-- <tr style="position: relative;" id="tcapturas"> -->
-									<!-- <td id="tcapturas"> -->
-										<div class="recortar-img">
-											<img class="recorte" style="border: 1px hidden red; padding: 0px; margin: auto; text-align: center; display: block;" width="600" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
-										</div>
-									<!-- </td> -->
-								<!-- </tr> -->
-								<!-- <tr style="position: relative;" id="tcapturas"> -->
-									<!-- <td style="position: relative;" id="tcapturas"> -->
-										<span style="border: 1px hidden red; margin: auto; text-align: center; display: block;" t-field="img.name"/>
-										<br/>
-									<!-- </td> -->
-								<!-- </tr> -->
+							
+								<div class="recortar-img">
+									<img class="recorte" style="border: 1px hidden red; padding: 0px; margin: auto; text-align: center; display: block;" width="600" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+								</div>
+									
+								<span style="border: 1px hidden red; margin: auto; text-align: center; display: block;" t-field="img.name"/>
+								<br/>
+									
 							</t>
 							</t>
-						<!-- </table> -->
+							
 					</t>
 		</template>
 
