@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import _, models, fields, api
+from odoo.exceptions import ValidationError
 
 import logging, datetime
 _logger = logging.getLogger(__name__)
@@ -50,9 +51,14 @@ class Wizard(models.TransientModel):
     # año_report = fields.Selection(_get_years, string='Año', required=True)
     introduccion = fields.Text(string="Introduccion")
 
-    date1 = fields.Date(string="Fecha comienzo")
-    date2 = fields.Date(string="Fecha de fin")
+    date1 = fields.Date(string="Fecha comienzo",required=True)
+    date2 = fields.Date(string="Fecha fin",required=True)
 
+    @api.one
+    @api.constrains('date1', 'date1')
+    def _check_closing_date(self):
+        if self.date2 < self.date1:
+            raise ValidationError(_('The closing date cannot be earlier than the beginning date.'))
     # año_report = fields.Integer(string = "Año", default='2020')
 
     # def tarea_mes_seleccionado(self, mes):
