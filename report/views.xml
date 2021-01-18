@@ -1,17 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <report
-            string="Reporte"
-            id="action_report_project"
-            model="project.project"
-            report_type="qweb-pdf"
-            name="projectreports.project_reports"
-            file="projectreports.project_reports"
-            paperformat="paperformat_projectreports"
-            menu="False"
-        /> 
-
-        <record id="paperformat_projectreports" model="report.paperformat">
+        
+        <record id="paperformat_projectreports" model="projectreports.projectreports">
             <field name="name">European A4 margin</field>
             <field name="default" eval="True" />
             <field name="format">A4</field>
@@ -26,7 +17,17 @@
             <field name="header_spacing">0</field>
             <field name="dpi">90</field>
         </record>
-		
+		<report
+            string="Reporte"
+            id="action_report_project"
+            model="project.project"
+            report_type="qweb-pdf"
+            name="projectreports.project_reports"
+            file="projectreports.project_reports"
+            paperformat="paperformat_projectreports"
+            menu="False"
+        /> 
+
         <!-- <record id="projectreports.projectreports_report_qweb" model="ir.actions.report.xml">
             <field name="paperformat_id" ref="projectreports.paperformat_projectreports" />
         </record> -->

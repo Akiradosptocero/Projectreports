@@ -93,7 +93,16 @@
             </form>
         </field>
     </record>
-   
+
+      <act_window id="mes_wizard_action" 
+                name="Mes Reporte"
+                res_model="projectreports.wizard"
+                src_model="project.project"
+                view_type="form"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
+                
     <record id="projectreports_kanban_view" model="ir.ui.view">
         <field name="name">projectreports.kanban</field>
         <field name="model">project.project</field>
@@ -123,13 +132,6 @@
         </field>
     </record>
    
-   <act_window id="mes_wizard_action" 
-                name="Mes Reporte"
-                res_model="projectreports.wizard"
-                src_model="project.project"
-                view_type="form"
-                view_mode="form"
-                target="new"
-                key2="client_action_multi"/>
+
 
 </odoo>
