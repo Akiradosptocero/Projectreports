@@ -12,14 +12,41 @@
             </field>
         </record>
 
-        <record model="ir.actions.act_window" id="config_list_action">
+        <!-- <record model="ir.actions.act_window" id="config_list_action">
             <field name="name">Configuracion</field>
             <field name="res_model">projectreports.imagenreport</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
+                <field name="sequence" widget="handle"/>
                 <p class="o_view_nocontent_smiling_face">Create the first config
                 </p>
+            </field>
+        </record> -->
+
+       <record model="ir.actions.act_window" id="config_list_action">
+            <field name="name">Configuracion</field>
+            <field name="res_model">projectreports.imagenreport</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <field name="sequence" widget="handle"/>
+                <p class="o_view_nocontent_smiling_face">Create the first config
+                    </p>
+            </field>
+        </record>
+
+        <record id="view_imagen" model="ir.ui.view">
+            <field name="name">projectreports.imagenreport.tree</field>
+            <field name="model">projectreports.imagenreport</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="fecha_img"/>
+                    <field name="picture"/>
+                    <field name="projecto_id"/>
+                </tree>
             </field>
         </record>
 
@@ -48,9 +75,18 @@
             <form string="Mes report">
                 <group>
                     <field name="projects_ids"/>
-                    <field name="mes_report"/>
+                    
+                    <field name="imagenes_ids"/>
+                    
+                    <field name="date1" widget="daterange" options="{'related_end_date': 'date2'}"/>
+                    <field name="date2" widget="daterange" options="{'related_start_date': 'date1'}"/>
+                    <!-- <field name="mes_report"/>
+                    <field name="año_report"/> -->
+                    <field name="introduccion"/>
                 </group>
                 <footer>
+                    <button string="Configuracion del reporte" name="%(projectreports.config_list_action)d" type="action"/>
+
                     <button name="filtrar_mes" string="Reporte del mes" class="oe_right oe_highlight" type="object"/>
                     <button string="Cancel" class="oe_right" special="cancel"/>
                 </footer>
@@ -58,6 +94,34 @@
         </field>
     </record>
    
+    <record id="projectreports_kanban_view" model="ir.ui.view">
+        <field name="name">projectreports.kanban</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.view_project_kanban"/>
+        <!-- <field name="type">kanban</field> -->
+        <field name="arch" type="xml">
+            <!-- <kanban class="oe_background_grey o_kanban_dashboard" create="0">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div> -->
+                            <xpath expr="//div[@class='o_kanban_card_manage_section o_kanban_manage_reports']" position="inside">
+                                
+                                <div role="menuitem">
+                                    <a  name="%(projectreports.mes_wizard_action)d" type="action">Month Report</a>
+                                </div>
+                                
+                                <div role="menuitem">
+                                    <a  name="%(projectreports.config_list_action)d" type="action">Config Report</a>
+                                </div>
+                            </xpath>
+                            
+                            <!-- <button string="Reporte del mes" name="%(projectreports.mes_wizard_action)d" type="action"/> -->
+                        <!-- </div>
+                    </t>
+                </templates>
+            </kanban> -->
+        </field>
+    </record>
    
    <act_window id="mes_wizard_action" 
                 name="Mes Reporte"

@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api
 
-import logging
+import logging, datetime
 _logger = logging.getLogger(__name__)
 
 class Wizard(models.TransientModel):
@@ -13,23 +13,47 @@ class Wizard(models.TransientModel):
     def _get_default_projects(self):
         return self.env['project.project'].browse(self.env.context.get('active_ids'))
 
+
     def hacer_reporte_mes(self):
         return self.env['project.project'].browse(self.env.context.get('active_ids'))
 
+    # def _get_years(self):
+    #     year_list = []
+    #     x = datetime.datetime.now()
+    #     for i in range(x.year-1, x.year+1):
+    #         year_list.append((i, str(i)))
+    #     return year_list
+
+
     projects_ids = fields.Many2many('project.project', string='Project', default=_get_default_projects)
-    mes_report = fields.Selection(string = 'Mes', default='1',
-                        selection=[('1', 'Enero'),
-                                    ('2', 'Febrero'),
-                                    ('3', 'Marzo'),
-                                    ('4', 'Abril'),
-                                    ('5', 'Mayo'),
-                                    ('6', 'Junio'),
-                                    ('7', 'Julio'),
-                                    ('8', 'Agosto'),
-                                    ('9', 'Septiembre'),
-                                    ('10', 'Octubre'),
-                                    ('11', 'Noviembre'),
-                                    ('12', 'Diciembre')])
+    
+
+    # def _get_default_imagen_order_ids(self):
+    #     return self.env['project.project'].search([('projecto_id','in','projects_ids')])
+    # , default=_get_default_imagen_order_ids
+    imagenes_ids = fields.Many2many('projectreports.imagenreport', string='Orden Imagenes')
+
+    # mes_report = fields.Selection(string = 'Mes', default='1',
+    #                     selection=[('1', 'Enero'),
+    #                                 ('2', 'Febrero'),
+    #                                 ('3', 'Marzo'),
+    #                                 ('4', 'Abril'),
+    #                                 ('5', 'Mayo'),
+    #                                 ('6', 'Junio'),
+    #                                 ('7', 'Julio'),
+    #                                 ('8', 'Agosto'),
+    #                                 ('9', 'Septiembre'),
+    #                                 ('10', 'Octubre'),
+    #                                 ('11', 'Noviembre'),
+    #                                 ('12', 'Diciembre')])
+
+    # año_report = fields.Selection(_get_years, string='Año', required=True)
+    introduccion = fields.Text(string="Introduccion")
+
+    date1 = fields.Date(string="Fecha comienzo")
+    date2 = fields.Date(string="Fecha de fin")
+
+    # año_report = fields.Integer(string = "Año", default='2020')
 
     # def tarea_mes_seleccionado(self, mes):
     #         mes_tarea = tarea.date # sacar mes y pasar a int
@@ -40,13 +64,25 @@ class Wizard(models.TransientModel):
     #     tareas_mes = filter(tarea_mes_seleccionado, tareas)
     #     return 
 
-    def filtrar_mes(self):
+    def filtrar_mes(self): 
+        
+        # /*
+        #     'mes': self.mes_report,
+        #     'año': self.año_report, */
         data = {
             'docs': self.projects_ids,
-            'mes': self.mes_report,
+            'intr': self.introduccion,
+            'fecha1': self.date1,
+            'fecha2': self.date2,
         }
-        _logger.info(self.projects_ids.mapped('id'))
-        self.env['project.project'].browse(self.projects_ids.mapped('id')).write({'month_tdisp': int(self.mes_report)})
+        _logger.info(self.projects_ids.mapped('id'))                              
+        
+                                                                                    # /*'month_tdisp': int(self.mes_report),
+                                                                                    # 'year_tdisp': int(self.año_report), */
+
+        self.env['project.project'].browse(self.projects_ids.mapped('id')).write({'intro': str(self.introduccion),
+                                                                                    'fecha_ini': str(self.date1),
+                                                                                    'fecha_end': str(self.date2)})
         # _logger.info(self.env.context)
         # self.with_context(mes=self.mes_report)
         # self.env.context.update({'mes': self.mes_report})

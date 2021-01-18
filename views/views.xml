@@ -7,8 +7,28 @@
             report_type="qweb-pdf"
             name="projectreports.project_reports"
             file="projectreports.project_reports"
+            paperformat="paperformat_projectreports"
             menu="False"
         /> 
 
+        <record id="paperformat_projectreports" model="report.paperformat">
+            <field name="name">European A4 margin</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+		
+        <!-- <record id="projectreports.projectreports_report_qweb" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="projectreports.paperformat_projectreports" />
+        </record> -->
   </data>
 </odoo>

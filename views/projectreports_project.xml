@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+     <!-- <record model="ir.ui.view" id="project_wizard_view">
+        <field name="name">wizard.form</field>
+        <field name="model">projectreports.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Mes report">
+                <group>
+                    <field name="projects_ids"/>
+                    <field name="mes_report"/>
+                    <field name="año_report"/>
+                </group>
+                <footer>
+                    <button name="filtrar_mes" string="Reporte del mes" class="oe_right oe_highlight" type="object"/>
+                    <button string="Cancel" class="oe_right" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record> -->
+</odoo>

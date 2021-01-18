@@ -8,9 +8,16 @@
 
 				<div class="page">
 			
-					<!-- Mostrar tabla con las tareas del proyecto filtrodo por el mes correspondiente -->
+					
 					<t t-call="projectreports.portada_del_informe"/>
 
+	
+					<t t-call="projectreports.introduccion_del_informe"/>
+					
+
+					<div style="page-break-before: always;border: 1px hidden blue;">
+						<p style="text-align: center; top: 500px; position:relative;margin:auto; font-size:48px;">Partes de hora</p>
+					</div>
 					<!-- Mostrar tabla con las tareas del proyecto filtrado por el mes correspondiente -->
 					<div style="page-break-before: always;">
 						<t t-call="projectreports.mostrar_tareas"/>
@@ -30,6 +37,16 @@
         </template>
 
 
+		<template id="introduccion_del_informe">
+					
+			<div style="page-break-before: always;">
+				<t t-if="i.intro != 'False'">
+					<p t-esc="i.intro"/>
+				</t>
+			</div>
+
+		</template>
+
 		<!-- To Do: poner la foto estatica en un directorio del modulo -->		
 		<template id="footer_del_informe">
         	<style>
@@ -46,32 +63,70 @@
         	</style>
 
 
-			<div style="position: static; margin-bottom: 5px; border: 1px hidden blue;" class="footer">
+			<div style="border: 1px hidden blue;" class="footer">
 			
-				<img style="position: relative; border: 1px hidden red; margin: 10px auto 20px; text-align: center; display: block;" width="50" src="/projectreports/static/src/img/logo.png"/>
-				<p style="position: relative; margin-bottom: 20px; margin: auto; border: 1px hidden green; font-family: perpeta; font-style: bold; font-size: 10x;  width: 90%;  text-align: center">Elaborado por Binhex.</p>
+				<!-- <img style="position: relative; border: 1px hidden red; margin: 10px auto 20px; text-align: center; display: block;" width="50" src="/projectreports/static/src/img/logo.png"/> -->
+				<table style="cellspacing:0;cellpadding:0;border-collapse: colapso;border: 1px hidden blue;width:100%;text-align:center;">
+					<tr style="border: 1px hidden blue;">
+						<td style="border: 1px hidden red;">
+							<img style="border: 1px hidden red;" height="50" src="/projectreports/static/src/img/logo.png"/>				
+							<p style="border: 1px hidden green; font-family: perpeta; font-style: bold; font-size: 10x;">Binhex Systems Solutions</p>
+						</td>
+							
+						<td style="border: 1px solid red;">
+							<p>binhex.es <br/>Tel.: 822 17 92 67 
+							<br/>Calle Lepanto, 3, 38005 Santa Cruz de Tenerife</p>
+						</td>
+						<td style="border: 1px hidden red;">
+							<img style="border: 1px hidden red;" width="50" src="/projectreports/static/src/img/logo_lobo.png"/>
+							<p style="border: 1px hidden green; font-family: perpeta; font-style: bold; font-size: 10x;">Lobo Creativo.</p>
+						</td>
+					</tr>
+					
+				</table>
+				
 			</div>
 		</template>
 
 
-		<!-- To Do: diseñar la portada
-					- poner foto de fondo 
-					- nombre de empresa
-					- mes y año del informe
-					- imagen logo empresa
-					 -->
 		<template id="portada_del_informe">
 			
-			<!-- <t t-foreach="i.imagenes" t-as="img">
-				<p t-if="img.name == 'logo-portada'">
-					<img style="border: 1px hidden red; margin: auto; text-align: center; display: block;" width="200" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
-				</p>
-			</t> -->
-			<h1><span t-field="i.name"/></h1>
-			<h1>Informe</h1> <!-- To Do: añadir el mes y año del informe  -->
-			
-			<img src="/projectreports/static/src/img/logo.png"/>
-			
+			<div style="position:relative; top:300px;">
+				<t t-foreach="i.imagenes" t-as="img">
+					<p t-if="img.name == 'logo-portada'">
+						<img style="border: 1px hidden red; margin: auto; text-align: center; display: block;" width="400" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+					</p>
+				</t>
+				
+				<!-- <p>Fecha inicio <t t-esc="i.fecha_ini"/></p>
+				<p>Fecha fin <t t-esc="i.fecha_end"/></p>
+				 -->
+
+				<!-- <t t-set="mes_informe" t-value="str(i.month_tdisp)" /> -->
+				<t t-set="mes_informe" t-value="str(i.fecha_ini).split('-')[1]" />
+
+				<h1>Informe 
+					<t t-if="str(mes_informe) == '1'"> Enero</t>
+					<t t-if="str(mes_informe) == '2'"> Febrero</t>
+					<t t-if="str(mes_informe) == '3'"> Marzo</t>
+					<t t-if="str(mes_informe) == '4'"> Abril</t>
+					<t t-if="str(mes_informe) == '5'"> Mayo</t>
+					<t t-if="str(mes_informe) == '6'"> Junio</t>
+					<t t-if="str(mes_informe) == '7'"> Julio</t>
+					<t t-if="str(mes_informe) == '8'"> Agosto</t>
+					<t t-if="str(mes_informe) == '9'"> Septiembre</t>
+					<t t-if="str(mes_informe) == '10'"> Octubre</t>
+					<t t-if="str(mes_informe) == '11'"> Noviembre</t>
+					<t t-if="str(mes_informe) == '12'"> Diciembre</t>
+
+					<!-- <span t-esc="str(i.year_tdisp)"/> -->
+					<span t-esc="str(i.fecha_ini).split('-')[0]"/>
+
+					para: 
+				</h1>
+
+				<h1><span t-field="i.name"/></h1>
+			</div>
 		</template>
 
 
@@ -83,7 +138,7 @@
 				{
 					position: relative;
    					width: 100%;
-   					border: 1px hidden #000;
+   					border: 1px solid #000;
 					border-collapse: collapse;
 				}
 
@@ -92,7 +147,7 @@
 					position: relative;
 				    text-align: center; 
 				    vertical-align: middle;
-					border: 1px hidden #000;
+					border: 1px solid #000;
 				}
 
 				tr#tareas:nth-child(3n+1) 
@@ -111,12 +166,17 @@
 				}
 
         	</style>
+			
+			<!-- variable para sumas las horas de los partes filtrados por el mes correspondiente  -->
+			<t t-set="horas_tarea" t-value="0" />
 
 			<table id="tareas">
 				<tr id="tareas">
 					<td><h2>TAREAS REALIZADAS</h2></td>
 					<td><h2>HORAS</h2></td>
 				</tr>
+
+				
 				<t t-set="suma" t-value="0" />
 				<!-- <tr>
 					<td> <p>Numero de tareas: </p> </td>
@@ -124,62 +184,71 @@
 				</tr> -->
 				<t t-foreach="i.task_ids" t-as="tarea">
 
-					<!-- <tr>
-						<td> <p>Nombre de la tarea:</p> </td>
-						<td> <span t-field="tarea.name"/> </td>
-					</tr>
 
-					<tr>
-						<td> <p>Fecha de la tarea:</p> </td>
-						<td> <span t-field="tarea.date_end"/> </td>
-					</tr> -->
-
-					<t t-if="tarea.date_end">
-
-
-						<t t-set="mesreporte" t-value="str(i.month_tdisp)" />
-						<t t-if="len(mesreporte) == 1" >
-							<t t-set="mesreporte" t-value="'0'+str(mesreporte)" />
-						</t>
-
-
-						<!-- <tr>
-							<td> <p>Entrando en el if:</p> </td>
-							<td> <span t-field="tarea.date_end"/> </td>
-						</tr>
-
-						<tr>
-							<td> <p>Filtrado mes tarea:</p> </td>
-							<td> <span t-esc="str(tarea.date_end).split('-')[1]"/> </td>
-						</tr>
-						<tr>
-							<td> <p>Mes a filtrar:</p> </td>
-							<td> <span t-field="mesreporte"/> </td>
+						<!-- <tr id="tareas">
+							<td><p t-field="tarea.name"/></td>
+							<td><p t-field="tarea.date_deadline"/></td>
 						</tr> -->
 
-						<t t-if="str(tarea.date_end).split('-')[1] == str(mesreporte)">
+					<t t-if="tarea.date_deadline">
 
-							<!-- <tr>
-								<td> <p>Entrando en el filtrado:</p> </td>
-								<td> <span t-field="tarea.date_end"/> </td>
-							</tr> -->
 
+						<!-- <t t-set="mesreporte" t-value="str(i.month_tdisp)" />
+						<t t-set="añoreporte" t-value="str(i.year_tdisp)" />
+						<t t-if="len(mesreporte) == 1" >
+							<t t-set="mesreporte" t-value="'0'+str(mesreporte)" />
+						</t> -->
+						<!-- <tr><p>Año</p> <p t-esc="añoreporte"/></tr>
+						<tr><p>Año tarea</p> <p t-esc="str(tarea.date_deadline).split('-')[0]"/></tr>
+						<tr><p>fecha tarea</p> <p t-esc="str(tarea.date_deadline)"/></tr> -->
+
+						<!-- <t t-if="str(tarea.date_deadline).split('-')[1] == str(mesreporte) and str(tarea.date_deadline).split('-')[0] == str(añoreporte)"> -->
+						<!-- <t t-if="str(tarea.date_deadline) >= str(i.fecha_ini) and str(tarea.date_deadline) <= str(i.fecha_end)"> -->
+						<t t-if="(str(tarea.date_deadline) >= str(i.fecha_ini)) and (str(i.fecha_end) >= str(tarea.date_deadline))">
+						
 							<tr id="tareas">
 								<td>
 									<h3><span t-field="tarea.name"/></h3>
+									<!-- <p t-field="tarea.date_deadline"/> -->
+
 									<t t-if="tarea.timesheet_ids">
+										
 										<t t-foreach="tarea.timesheet_ids" t-as="act">
-											<t t-if="act.name">
+											<!-- <t t-if="str(act.date).split('-')[1] == str(mesreporte) and str(act.date).split('-')[0] == str(añoreporte)"> -->
+											<t t-if="(str(act.date) >= str(i.fecha_ini)) and (str(i.fecha_end) >= str(act.date))">
+
 												<span style="border: 1px hidden red; text-align: left; text-transform: capitalize;" id="tareas" t-field="act.name"/>
 												<br/>
+
+												<!-- <span style="border: 1px hidden red; text-align: left; text-transform: capitalize;" id="tareas" t-field="act.date"/>
+												<br/>
+												<span style="border: 1px hidden red; text-align: left; text-transform: capitalize;" id="tareas" t-field="act.unit_amount"/>
+												<br/> -->
+
+												<t t-set="horas_tarea" t-value="horas_tarea + act.unit_amount" />
+												
 											</t>
 										</t>
+										<!-- <t t-set="suma" t-value="suma + horas_tarea" /> -->
 									</t>
 									<br/>
 								</td>
-									
-								<td><span t-esc="'{0:}'.format(int(tarea.effective_hours))"/></td>
-								<t t-set="suma" t-value="tarea.effective_hours + suma" />
+								
+								<!-- <td> 
+									<p>horas parte de la tarea</p>
+									<span t-esc="int(horas_tarea)"/>
+								</td> -->
+
+								<t t-set="suma" t-value="suma + horas_tarea" />
+								<!-- <td>
+									<p>	Suma </p>
+									<span t-esc="suma"/>
+								</td> -->
+
+								<td><span t-esc="'{0:}'.format(int(horas_tarea))"/></td>
+								<t t-set="horas_tarea" t-value="0" />
+
+								<!-- <t t-set="suma" t-value="tarea.effective_hours + suma" /> -->
 							</tr>
 						</t>
 					</t>
@@ -193,81 +262,28 @@
 		</template>
 
 
-		<!-- To do: tamaño de las fotos y pie de foto
-					 -->
 		<template id="mostrar_capturas">
-			<style>
-
-				<!-- table#tcapturas 
-				{
-   					width: 100%;
-   					border: 1px hidden #000;
-				} -->
-
-        		<!-- td#tcapturas 
-				{
-				    text-align: center; 
-				    vertical-align: top;
-					border: 2px solid yellow;
-					padding-bottom: 0px;
-					box-sizing: border-box;
-				} -->
-
-				<!-- 
-				table, tr, td, td {
-					valign: top;
-					position: relative;
-				} -->
-
-				<!-- To Do: fijar el footer para poder poner un tamaño de imagen mas grande
-							Cuando se amplia se desplaza y desaparece 
-							 -->
-				<!-- #img-capturas 
-				{
-					margin: 10px auto 20px;
-					text-align: center;
-					display: block;
-					border: 3px solid blue;
-				} -->
-					<!-- style="border: 2px solid blue; padding: 5px; margin: 10px auto 20px; text-align: center; display: block;" -->
-
-					<!-- .recortar-img {
-						width: 200px;
-						height: 200px;
-						overflow: hidden;
-						margin: 10px;
-						position: relative;
-					}
-					.recortar-img > .recorte {
-						position:absolute;
-						left: -100%;
-						right: -100%;
-						top: -100%;
-						bottom: -100%;
-						margin: auto;
-						min-height: 100%;
-						min-width: 100%;
-					} -->
-
-        	</style>
+		
 			
-			
-				<h2>Capturas de pantalla</h2>
+				<h2>Capturas de Google Analytics</h2>
+				<br/>
 					<t t-foreach="i.imagenes" t-as="img">
-						
-							<t t-if="img.name != 'logo-portada'">
-
-							<t t-if="str(i.month_tdisp) == str(img.mes_imagen)">
-							
-								<div class="recortar-img">
-									<img class="recorte" style="border: 1px hidden red; padding: 0px; margin: auto; text-align: center; display: block;" width="600" id="img-capturas" t-attf-src="data:image/*;base64,{{img.picture}}"/>
-								</div>
+						<t t-if="img.name != 'logo-portada'">
+							<!-- <t t-if="str(i.month_tdisp) == str(img.mes_imagen)"> -->
+							<t t-if="(str(img.fecha_img) >= str(i.fecha_ini)) and (str(i.fecha_end) >= str(img.fecha_img))">
 									
-								<span style="border: 1px hidden red; margin: auto; text-align: center; display: block;" t-field="img.name"/>
+								<div style="position:relative;display:block;width:100%;height:1040px;overflow:hidden;text-align: center;border: 1px hidden blue;">
+									
+									<p style="border: 1px hidden red;" t-field="img.name"/>
+									
+									<img style="border: 1px hidden red;" width="600" t-attf-src="data:image/*;base64,{{img.picture}}"/>
+										
+								</div>	
 								<br/>
-									
+								<!-- <div style="page-break-inside: avoid;"> -->
+								<div style="page-break-after:always;"/>
 							</t>
-							</t>
+						</t>
 							
 					</t>
 		</template>
